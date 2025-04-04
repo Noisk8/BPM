@@ -61,7 +61,7 @@
 |Le Chocolat Noir     |                       | A3 Post-Hibernation Re-Activation | 12X 🔴 |
 |Satol                |                       | B1 A Touch Slower     | 12X 🔴 |
 |Foil (7)             |                       | B2 Distortion Of Reality| 12X 🔴 |
-|Artificiero          |                       | B3 Logia De La Navaja | 12X 🔴 |
+|Artificiero          |                       | B3 Logia De La Navaja | 129 🔴 |
 |                     |                       |                       |     |
 |**Credit 00**        |**Data Phobia**        |                       |     |
 |                     |                       | A1 Data Phobia        | 12X 🔴 |
