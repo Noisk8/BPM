@@ -31,7 +31,7 @@
 |                     |                       | A1 The Scene          | 129 🔴 |
 |                     |                       | A2 Bolwerk            | 127 🔴 |
 |                     |                       | B1 Lasersports        | 130 🔴 |
-|                     |                       | B2 Gotthard           |     |
+|                     |                       | B2 Gotthard           | 126 🔴 |
 |                     |                       |                       |     |
 |**Varios [MOVE]**    |**VA/Origin**         |                       |     |
 | Black propaganada   |                       | A1 Falso Lider        | 108 🔵 |
@@ -56,26 +56,26 @@
 |                     |                       | B Welcome To Paradise (V2.0) | 120 🟠 |
 |                     |                       |                       |     |
 |**Various**          |**Frigio Allstars Vol 2**|                       |     |
-|Pera Yang            |                       | A1 Mad Vision         | 12X 🔴 |
-|Daniel Holt          |                       | A2 Negative Spiritualism| 12X 🔴 |
-|Le Chocolat Noir     |                       | A3 Post-Hibernation Re-Activation | 12X 🔴 |
-|Satol                |                       | B1 A Touch Slower     | 12X 🔴 |
-|Foil (7)             |                       | B2 Distortion Of Reality| 12X 🔴 |
-|Artificiero          |                       | B3 Logia De La Navaja | 129 🔴 |
+|Pera Yang            |                       | A1 Mad Vision         | 125 🔴 |
+|Daniel Holt          |                       | A2 Negative Spiritualism| 115 🟠 |
+|Le Chocolat Noir     |                       | A3 Post-Hibernation Re-Activation | 129 🔴 |
+|Satol                |                       | B1 A Touch Slower     | 201? 🔴 |
+|Foil (7)             |                       | B2 Distortion Of Reality| 115 🟠 |
+|Artificiero          |                       | B3 Logia De La Navaja | 105 🔵 |
 |                     |                       |                       |     |
 |**Credit 00**        |**Data Phobia**        |                       |     |
-|                     |                       | A1 Data Phobia        | 12X 🔴 |
-|                     |                       | A2 Being Baked        | 12X 🔴 |
-|                     |                       | B1 Fatty Acid         | 12X 🔴 |
-|                     |                       | B2 Control Z          | 12X 🔴 |
+|                     |                       | A1 Data Phobia        | 103 🔵 |
+|                     |                       | A2 Being Baked        | 103 🔵 |
+|                     |                       | B1 Fatty Acid         | 123 🟠 |
+|                     |                       | B2 Control Z          | 115 🟢 |
 |                     |                       |                       |     |
 |**The Exaltics ft. Paris The Black Fu** |**Dis Turb Ance Int He Tim Eline** |                       |     |
-|                                    |                                | A1 Tim Elined Is Turbance                     |     |
-|                                    |                                | A2 Dis Turb Ance Int He Tim Eline             |     |
-|                                    |                                | A3 10 0seco Ndsti Lmidnight                   |     |
-|                                    |                                | B1 Thre Atmul Tiplier                         |     |
-|                                    |                                | B2 10 0seco Ndstil Lmidnight (Lorenz.Orx RMX) |     |
-|                                    |                                | B3 W Eex Ist Part 2                           |     |
+|                                    |                                | A1 Tim Elined Is Turbance                     | xxx|
+|                                    |                                | A2 Dis Turb Ance Int He Tim Eline             | 139 🔴|
+|                                    |                                | A3 10 0seco Ndsti Lmidnight                   | 139 🔴|
+|                                    |                                | B1 Thre Atmul Tiplier                         | 141 🔴|
+|                                    |                                | B2 10 0seco Ndstil Lmidnight (Lorenz.Orx RMX) | 139🔴|
+|                                    |                                | B3 W Eex Ist Part 2                           | xxx  |
 |                     |                       |                       |     |
 |**The Exaltics & Paris The Black Fu** |**We Exist (Chapter One)** |                       |     |
 |                                  |                        | A1 Intro                |     |
