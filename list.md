@@ -40,16 +40,16 @@
 | Blotketch           |                       | B2 Epicentro          | 129 🔴 |
 |                     |                       |                       |     |
 |**Gesloten Cirkel**  |**Submit X**          |                       |     |
-|                     |                       | A1 Zombiemaschine Acid | 1XX 🔴 |
-|                     |                       | A2 Zombiemaschine     | 1XX 🔴 |
-|                     |                       | A3 Submit X           | 1XX 🔴 |
+|                     |                       | A1 Zombiemaschine Acid | 127 🔴 |
+|                     |                       | A2 Zombiemaschine     | 125 🔴 |
+|                     |                       | A3 Submit X           | 131 🔴 |
 |                     |                       | B1 Stakapella         | 1XX 🔴 |
-|                     |                       | B2 Stakan             | 1XX 🔴 |
-|                     |                       | B3 Chatters           |     |
-|                     |                       | C1 Feat Liette        |     |
-|                     |                       | C2 Arrested Development|     |
-|                     |                       | D1 Secret Area        |     |
-|                     |                       | D2 Vader              |     |
+|                     |                       | B2 Stakan             | 120 🟠 |
+|                     |                       | B3 Chatters           | 120 🟠 |
+|                     |                       | C1 Feat Liette        | 120 🟠|
+|                     |                       | C2 Arrested Development| 128 🔴|
+|                     |                       | D1 Secret Area        |  120 🟠|
+|                     |                       | D2 Vader              | 124 🟠|
 |                     |                       |                       |     |
 |**Front 242**        |**Headhunter**        |                       |     |
 |                     |                       | A Headhunter (V2.0)  | 120 🟠 |
