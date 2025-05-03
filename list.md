@@ -74,24 +74,24 @@
 |                                    |                                | A2 Dis Turb Ance Int He Tim Eline             | 139 🔴|
 |                                    |                                | A3 10 0seco Ndsti Lmidnight                   | 139 🔴|
 |                                    |                                | B1 Thre Atmul Tiplier                         | 141 🔴|
-|                                    |                                | B2 10 0seco Ndstil Lmidnight (Lorenz.Orx RMX) | 139🔴|
+|                                    |                                | B2 10 0seco Ndstil Lmidnight (Lorenz.Orx RMX) | 139 🔴|
 |                                    |                                | B3 W Eex Ist Part 2                           | xxx  |
 |                     |                       |                       |     |
 |**The Exaltics & Paris The Black Fu** |**We Exist (Chapter One)** |                       |     |
-|                                  |                        | A1 Intro                |     |
-|                                  |                        | A2 The Troublemaker     |     |
-|                                  |                        | A3 Propaganda DNA       |     |
-|                                  |                        | B1 We Exist             |     |
-|                                  |                        | B2 Radioactive Rain     |     |
-|                                  |                        | B3 We Don't Take Humans |     |
+|                                  |                        | A1 Intro                | xxx |
+|                                  |                        | A2 The Troublemaker     | 146 🔴|
+|                                  |                        | A3 Propaganda DNA       | 137 🔴     |
+|                                  |                        | B1 We Exist             | 140 🔴|
+|                                  |                        | B2 Radioactive Rain     | 142 🔴|
+|                                  |                        | B3 We Don't Take Humans | 136 🔴 |
 |                     |                       |                       |     |
 |**System 01**        |**System 01 ( 1990-94 )**      |                       |     |
-|                     |                               |A1 Drugs Work                                             |     |
-|                     |                               |A2 Any Reality Is An Option                               |     |
-|                     |                               |A3 From Psychedelics To Cybernetics ft. Dr. Timothy Leary | 108🔵   |
-|                     |                               |B1 Know Time                                              |     |
-|                     |                               |B2 Paralysed Force (Shape Without Form Mix)               |     |
-|                     |                               |B3 Deadly & Addictive                                     |     |
+|                     |                               |A1 Drugs Work                                             | 134 🔴|
+|                     |                               |A2 Any Reality Is An Option                               | 116 🟢  |
+|                     |                               |A3 From Psychedelics To Cybernetics ft. Dr. Timothy Leary | 116 🔵   |
+|                     |                               |B1 Know Time                                              | 119   |
+|                     |                               |B2 Paralysed Force (Shape Without Form Mix)               | 119   |
+|                     |                               |B3 Deadly & Addictive                                     | 130  |
 |                     |                               |C1 The Pleasure Principle                                 |     |
 |                     |                               |C2 Mind Sensations (Voov / System 01 Remix)               |     |
 |                     |                               |C3 Victim 34                                              |     |
