@@ -92,12 +92,12 @@
 |                     |                               |B1 Know Time                                              | 119 🟠 |
 |                     |                               |B2 Paralysed Force (Shape Without Form Mix)               | 119 🟠 |
 |                     |                               |B3 Deadly & Addictive                                     | 130 🟣 |
-|                     |                               |C1 The Pleasure Principle                                 |     |
-|                     |                               |C2 Mind Sensations (Voov / System 01 Remix)               |     |
-|                     |                               |C3 Victim 34                                              |     |
-|                     |                               |D1 Take My Soul                                           |     |
-|                     |                               |D2 The Confession                                         | 129 🔴 |
-|                     |                               |D3 You're Like Me                                         | 130 🟣 |
+|                     |                               |C1 The Pleasure Principle                                 | 130 🟣 |
+|                     |                               |C2 Mind Sensations (Voov / System 01 Remix)               | 140 🟣|
+|                     |                               |C3 Victim 34                                              | 130 🟣 |
+|                     |                               |D1 Take My Soul                                           | 135 🟣 |
+|                     |                               |D2 The Confession                                         | 121 🔴 |
+|                     |                               |D3 You're Like Me                                         | 135 🟣 |
 |                     |                       |                       |     |
 |**Various [Upstairs Asylum Recordings]**     |**Unity Vol. 3**      |                       |     |
 | Jordan Field        |                               |A1 It's An Interesting Thought   | 122 🔴 |
@@ -126,73 +126,73 @@
 |Seixlack                        |                               |B2 Yi-Ja   | 110 🟠|
 |Seixlack                        |                               |B3 Minha Conta   | 123 🔴|
 |                     |                               |                       |     |
-|**Styx**     |**Kilroy Wa Here**                      |                       |     |
-|                     |                               |A1 Mr. Roboto  | 1XX 🔴|
-|                     |                               |A2 Cold War     | 1XX 🔴|
-|                     |                               |A3 Don't Let It End | 1XX 🔴|
-|                     |                               |A4 High Time    | 1XX 🔴|
-|                     |                               |B1 Heavy Metal Poisoning | 1XX 🔴|
-|                     |                               |B2 Just Can't Get Through This Night | 1XX 🔴|
-|                     |                               |B3 Double Life | 1XX 🔴|
-|                     |                               |B4 Haven't We Been Here Before | 1XX 🔴|
-|                     |                               |B5 Don't Let It End (Reprise) | 1XX 🔴|
+|**Styx**             |**Kilroy Wa Here**                      |                       |     |
+|                     |                               |A1 Mr. Roboto  | 142 🟣|
+|                     |                               |A2 Cold War     | 139 🟣|
+|                     |                               |A3 Don't Let It End | 111 🟠|
+|                     |                               |A4 High Time    | 118 🟠|
+|                     |                               |B1 Heavy Metal Poisoning | 105 🟡 |
+|                     |                               |B2 Just Can't Get Through This Night | 97 🟢|
+|                     |                               |B3 Double Life | 103 🟡|
+|                     |                               |B4 Haven't We Been Here Before | 147 🟣|
+|                     |                               |B5 Don't Let It End (Reprise) | 80  🔵 |
 |                     |                               |                       |     |
-|**Alan Strani**     |**Apocalypso Remixes**                      |                       |     |
+|**Alan Strani**      |**Apocalypso Remixes**                      |                       |     |
 |                     |                               |A1 Apocalypso (San Bernardo Superstrada Version) | 1XX 🔴|
 |                     |                               |A2 Apocalypso (I:Cube Remix) | 1XX 🔴|
 |                     |                               |B1 Apocalypso (Lauer Remix) | 1XX 🔴|
 |                     |                               |B2 Apocalypso (In Flagranti Remix Dub) | 1XX 🔴|
 |                     |                               |                       |     |
-|**Enigma**     |**MCMXC a.D.**                      |                       |     |
-|                     |                               |A1 The Voice Of Enigma | 1XX 🔴|
+|**Enigma**           |**MCMXC a.D.**                      |                       |     |
+|                     |                               |A1 The Voice Of Enigma | XXX |
 |                     |                               |**Principles Of Lust** | |
-|                     |                               |→ A2.1 Sadeness | 1XX 🔴|
-|                     |                               |→ A2.2 Find Love | 1XX 🔴|
-|                     |                               |→ A2.3 Sadeness (Reprise) | 1XX 🔴|
-|                     |                               |A3 Callas Went Away | 1XX 🔴|
-|                     |                               |B1 Mea Culpa | 1XX 🔴|
-|                     |                               |B2 The Voice & The Snake | 1XX 🔴|
-|                     |                               |B3 Knocking On Forbidden Doors| 1XX 🔴|
+|                     |                               |→ A2.1 Sadeness | 124 🔴|
+|                     |                               |→ A2.2 Find Love |  96 🟢|
+|                     |                               |→ A2.3 Sadeness (Reprise) | 127 🔴|
+|                     |                               |A3 Callas Went Away | 93 🟢|
+|                     |                               |B1 Mea Culpa | 122 🔴|
+|                     |                               |B2 The Voice & The Snake | 104 🟡|
+|                     |                               |B3 Knocking On Forbidden Doors| 110 🔴|
 |                     |                               |**Back To The Rivers Of Belief** | |
-|                     |                               |→ B4.1 Way To Eternity | 1XX 🔴|
+|                     |                               |→ B4.1 Way To Eternity | 110 🟡|
 |                     |                               |→ B4.2 Hallelujah | 1XX 🔴|
 |                     |                               |→ B4.3 The Rivers Of Belief | 1XX 🔴|
 |                     |                               |                       |     |   
-|**Various**     |**A Night At Studio 54**                      |                       |     |
-|Chic                     |                               |A1 Le Freak                               | 1XX 🔴|
-|The Michael Zager Band   |                               |A2 Let's All Chant                        | 1XX 🔴|
-|Village People           |                               |A3 Y.M.C.A.                               | 1XX 🔴|
-|G.Q                      |                               |A4 Disco Nights                           | 1XX 🔴|
-|Cher                     |                               |B1 Take Me Home.                          | 1XX 🔴|
-|Alicia Bridges           |                               |B2 I Love The Night Life (Disco 'Round)   | 1XX 🔴|
-|Love And Kisses          |                               |B3 I Found Love (Now That I Found You)    | 1XX 🔴| 
-|Donna Summer             |                               |B4 Last Dance                             | 1XX 🔴|
-|Cheryl Lynn              |                               |C1 Got To Be Real                         | 1XX 🔴|
-|Instant Funk             |                               |C2 I Got My Mind Made Up                  | 1XX 🔴|
-|Karen Young              |                               |C3 Hot Shot                               | 1XX 🔴|
-|Patrick Juvet            |                               |C4 I Love America                         | 1XX 🔴|
-|Voyage                   |                               |D1 Souvenirs                              | 1XX 🔴|
-|D.C. LaRue               |                               |D2 Hot Jungle Drums And Voo Doo Rhythm     | 1XX 🔴|
-|Musique                  |                               |D3 In The Bush                            | 1XX 🔴|
-|Dan Hartman              |                               |D4 Instant Replay                         | 1XX 🔴|
-|Peaches And Herb         |                               |D5 Shake Your Groove Thing                | 1XX 🔴|
+|**Various**          |**A Night At Studio 54**                      |                       |     |
+|Chic                     |                               |A1 Le Freak                               | 120 🟡|
+|The Michael Zager Band   |                               |A2 Let's All Chant                        | 122 🔴|
+|Village People           |                               |A3 Y.M.C.A.                               | 124 🔴|
+|G.Q                      |                               |A4 Disco Nights                           | 125 🔴|
+|Cher                     |                               |B1 Take Me Home.                          | 122 🔴|
+|Alicia Bridges           |                               |B2 I Love The Night Life (Disco 'Round)   | 126 🔴|
+|Love And Kisses          |                               |B3 I Found Love (Now That I Found You)    | 127 🔴| 
+|Donna Summer             |                               |B4 Last Dance                             | 127 🔴|
+|Cheryl Lynn              |                               |C1 Got To Be Real                         | 112 🟠|
+|Instant Funk             |                               |C2 I Got My Mind Made Up                  | 114 🟠|
+|Karen Young              |                               |C3 Hot Shot                               | 114 🟠|
+|Patrick Juvet            |                               |C4 I Love America                         | 125 🔴|
+|Voyage                   |                               |D1 Souvenirs                              | 133 🟣|
+|D.C. LaRue               |                               |D2 Hot Jungle Drums And Voo Doo Rhythm    | 136 🟣|
+|Musique                  |                               |D3 In The Bush                            | 134 🟣|
+|Dan Hartman              |                               |D4 Instant Replay                         | 134 🟣|
+|Peaches And Herb         |                               |D5 Shake Your Groove Thing                | 68 🔵|
 |                     |                               |                       |     |   
-|**Ace Of Base**     |**The Bridge**                      |                       |     |
-|                     |                               |A1 Beautiful Life               | 1XX 🔴|
-|                     |                               |A2 Never Gonna Say I'm Sorry    | 1XX 🔴|
-|                     |                               |A3 Edge Of Heaven               | 1XX 🔴|
-|                     |                               |A4 Strange Ways                 | 1XX 🔴|
-|                     |                               |A5 Ravine                       | 1XX 🔴|
-|                     |                               |A6 Perfect World                | 1XX 🔴|
-|                     |                               |A7 Whispers In Blindness        | 1XX 🔴|
-|                     |                               |B1 Lucky Love (Acoustic Version)| 1XX 🔴|
-|                     |                               |B2 Angel Eyes                   | 1XX 🔴|
-|                     |                               |B3 My Déjà Vu                   | 1XX 🔴|
-|                     |                               |B4 Wave Wet Sand                | 1XX 🔴|
-|                     |                               |B5 Que Sera                     | 1XX 🔴|
-|                     |                               |B6 Just 'N' Image               | 1XX 🔴|
-|                     |                               |B7 Experience Pearls            | 1XX 🔴|
-|                     |                               |B8 Blooming 18                  | 1XX 🔴|
+|**Ace Of Base**      |**The Bridge**                      |                       |     |
+|                     |                               |A1 Beautiful Life               | 135 🟣|
+|                     |                               |A2 Never Gonna Say I'm Sorry    | 99  🟢|
+|                     |                               |A3 Edge Of Heaven               | 126 🔴|
+|                     |                               |A4 Strange Ways                 | 120 🔴|
+|                     |                               |A5 Ravine                       | 82  🔵|
+|                     |                               |A6 Perfect World                | 95  🟢|
+|                     |                               |A7 Whispers In Blindness        | 92  🟢|
+|                     |                               |B1 Lucky Love (Acoustic Version)| 104 🟡|
+|                     |                               |B2 Angel Eyes                   | 88  🔵|
+|                     |                               |B3 My Déjà Vu                   | 98  🟢|
+|                     |                               |B4 Wave Wet Sand                | 82  🔵|
+|                     |                               |B5 Que Sera                     | 85  🔵|
+|                     |                               |B6 Just 'N' Image               | 112 🟠|
+|                     |                               |B7 Experience Pearls            | 86 🔵|
+|                     |                               |B8 Blooming 18                  | 98 🟢|
 |                     |                               |                       |     |
 |**Charlotte**        |**Where We Are**               |                                  |     |
 |                     |                               |A1 Where We Are (Extended Mix)    | 1XX 🔴|
@@ -201,7 +201,7 @@
 |                     |                               |A4 Where We Are (Soundforce Mix)  | 1XX 🔴|
 |                     |                               |A5 Where We Are (Acappella)       | 1XX 🔴|
 |                     |                               |                       |     |
-|**Hellboii**        |**The Crisis Of Proliferation**   |                                  |     |
+|**Hellboii**         |**The Crisis Of Proliferation**   |                                  |     |
 |                     |                               |A1 The Crisis Of Proliferation    | 1XX 🔴|
 
 
