@@ -19,6 +19,7 @@ const TrackForm: React.FC = () => {
   const isEditMode = Boolean(trackId);
   
   const [artists, setArtists] = useState<any[]>([]);
+  const [genres, setGenres] = useState<any[]>([]);
   const [lpData, setLpData] = useState<any>(null); // Datos del LP actual
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -27,7 +28,9 @@ const TrackForm: React.FC = () => {
   // Datos del formulario del track
   const [formData, setFormData] = useState({
     title: '',
-    artist_id: '', // Puede ser diferente del artista del LP (colaboración)
+    artist_id: '', // Artista principal (para compatibilidad)
+    artists: [] as string[], // Array de IDs de artistas para colaboraciones
+    genres: [] as string[], // Array de IDs de géneros
     bpm: '',
     key: '',
     duration_seconds: ''
@@ -47,6 +50,15 @@ const TrackForm: React.FC = () => {
 
         if (artistsError) throw artistsError;
         setArtists(artistsData || []);
+        
+        // Cargar géneros para el selector
+        const { data: genresData, error: genresError } = await supabase
+          .from('genres')
+          .select('id, name, description')
+          .order('name');
+          
+        if (genresError) throw genresError;
+        setGenres(genresData || []);
         
         // Si estamos añadiendo a un LP existente o editando un track
         if (lpId) {
@@ -79,9 +91,27 @@ const TrackForm: React.FC = () => {
           if (trackError) throw trackError;
           
           if (trackData) {
+            // Cargar los artistas asociados a esta canción
+            const { data: songArtists, error: songArtistsError } = await supabase
+              .from('song_artists')
+              .select('artist_id')
+              .eq('song_id', trackId);
+              
+            if (songArtistsError) throw songArtistsError;
+            
+            // Cargar los géneros asociados a esta canción
+            const { data: songGenres, error: songGenresError } = await supabase
+              .from('song_genres')
+              .select('genre_id')
+              .eq('song_id', trackId);
+              
+            if (songGenresError) throw songGenresError;
+            
             setFormData({
               title: trackData.title || '',
               artist_id: trackData.artist_id || '',
+              artists: songArtists ? songArtists.map(sa => sa.artist_id) : [],
+              genres: songGenres ? songGenres.map(sg => sg.genre_id) : [],
               bpm: trackData.bpm?.toString() || '',
               key: trackData.key || '',
               duration_seconds: trackData.duration_seconds?.toString() || ''
@@ -118,6 +148,64 @@ const TrackForm: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+  
+  // Añadir un artista a la lista de seleccionados
+  const handleAddArtist = (artistId: string) => {
+    if (!artistId) return;
+    
+    // Verificar si ya está en la lista
+    if (formData.artists.includes(artistId)) {
+      toast({
+        title: 'Artista ya añadido',
+        status: 'info',
+        duration: 2000,
+      });
+      return;
+    }
+    
+    // Añadir a la lista
+    setFormData(prev => ({
+      ...prev,
+      artists: [...prev.artists, artistId]
+    }));
+  };
+  
+  // Eliminar un artista de la lista de seleccionados
+  const handleRemoveArtist = (artistId: string) => {
+    setFormData(prev => ({
+      ...prev,
+      artists: prev.artists.filter(id => id !== artistId)
+    }));
+  };
+  
+  // Añadir un género a la lista de seleccionados
+  const handleAddGenre = (genreId: string) => {
+    if (!genreId) return;
+    
+    // Verificar si ya está en la lista
+    if (formData.genres.includes(genreId)) {
+      toast({
+        title: 'Género ya añadido',
+        status: 'info',
+        duration: 2000,
+      });
+      return;
+    }
+    
+    // Añadir a la lista
+    setFormData(prev => ({
+      ...prev,
+      genres: [...prev.genres, genreId]
+    }));
+  };
+  
+  // Eliminar un género de la lista de seleccionados
+  const handleRemoveGenre = (genreId: string) => {
+    setFormData(prev => ({
+      ...prev,
+      genres: prev.genres.filter(id => id !== genreId)
+    }));
   };
 
   // Obtener emoji de color para el BPM
@@ -162,7 +250,7 @@ const TrackForm: React.FC = () => {
       // Preparo los datos para enviar
       const trackData = {
         title: formData.title.trim(),
-        artist_id: formData.artist_id || null,
+        artist_id: formData.artist_id || null, // Mantener para compatibilidad
         album_id: lpId || (lpData?.id || null), // Usar el LP actual
         bpm: formData.bpm ? parseInt(formData.bpm) : null,
         key: formData.key || null,
@@ -177,12 +265,94 @@ const TrackForm: React.FC = () => {
           .from('songs')
           .update(trackData)
           .eq('id', trackId);
+          
+        if (result.error) throw result.error;
+        
+        // Actualizar relaciones con artistas
+        // Primero eliminar todas las relaciones existentes
+        const { error: deleteArtistsError } = await supabase
+          .from('song_artists')
+          .delete()
+          .eq('song_id', trackId);
+          
+        if (deleteArtistsError) throw deleteArtistsError;
+        
+        // Luego insertar las nuevas relaciones
+        if (formData.artists.length > 0) {
+          const songArtistsData = formData.artists.map(artistId => ({
+            song_id: trackId,
+            artist_id: artistId
+          }));
+          
+          const { error: insertArtistsError } = await supabase
+            .from('song_artists')
+            .insert(songArtistsData);
+            
+          if (insertArtistsError) throw insertArtistsError;
+        }
+        
+        // Actualizar relaciones con géneros
+        // Primero eliminar todas las relaciones existentes
+        const { error: deleteGenresError } = await supabase
+          .from('song_genres')
+          .delete()
+          .eq('song_id', trackId);
+          
+        if (deleteGenresError) throw deleteGenresError;
+        
+        // Luego insertar las nuevas relaciones
+        if (formData.genres.length > 0) {
+          const songGenresData = formData.genres.map(genreId => ({
+            song_id: trackId,
+            genre_id: genreId
+          }));
+          
+          const { error: insertGenresError } = await supabase
+            .from('song_genres')
+            .insert(songGenresData);
+            
+          if (insertGenresError) throw insertGenresError;
+        }
       } else {
         // Crear nuevo track
         result = await supabase
           .from('songs')
           .insert([trackData])
           .select();
+          
+        if (result.error) throw result.error;
+        
+        // Insertar relaciones con artistas si hay un nuevo track creado
+        if (result.data && result.data.length > 0 && formData.artists.length > 0) {
+          const newSongId = result.data[0].id;
+          
+          const songArtistsData = formData.artists.map(artistId => ({
+            song_id: newSongId,
+            artist_id: artistId
+          }));
+          
+          const { error: insertError } = await supabase
+            .from('song_artists')
+            .insert(songArtistsData);
+            
+          if (insertError) throw insertError;
+        }
+        
+        // Insertar relaciones con géneros si hay un nuevo track creado
+        if (result.data && result.data.length > 0 && formData.genres.length > 0) {
+          const newSongId = result.data[0].id;
+          
+          const songGenresData = formData.genres.map(genreId => ({
+            song_id: newSongId,
+            genre_id: genreId
+          }));
+          
+          const { error: insertError } = await supabase
+            .from('song_genres')
+            .insert(songGenresData);
+            
+          if (insertError) throw insertError;
+        }
       }
       
       if (result.error) throw result.error;
@@ -250,22 +420,87 @@ const TrackForm: React.FC = () => {
                 />
               </FormControl>
               
-              <FormControl id="artist_id">
-                <FormLabel>Artista del track</FormLabel>
-                <Select 
-                  name="artist_id"
-                  value={formData.artist_id}
-                  onChange={handleChange}
-                  placeholder="Selecciona el artista de este track"
-                >
-                  {artists.map(artist => (
-                    <option key={artist.id} value={artist.id}>
-                      {artist.name}
-                    </option>
-                  ))}
-                </Select>
+              <FormControl mb={4}>
+                <FormLabel>Artistas (colaboraciones)</FormLabel>
+                <Flex align="center">
+                  <Select 
+                    placeholder="Seleccionar artistas"
+                    onChange={(e) => handleAddArtist(e.target.value)}
+                    value=""
+                  >
+                    {artists
+                      .filter(artist => !formData.artists.includes(artist.id))
+                      .map(artist => (
+                        <option key={artist.id} value={artist.id}>
+                          {artist.name}
+                        </option>
+                      ))}
+                  </Select>
+                </Flex>
+                
+                {formData.artists.length > 0 && (
+                  <Box mt={2}>
+                    <Text fontWeight="bold" mb={2}>Artistas seleccionados:</Text>
+                    <VStack align="stretch" spacing={2}>
+                      {formData.artists.map(artistId => {
+                        const artist = artists.find(a => a.id === artistId);
+                        return (
+                          <Flex key={artistId} justify="space-between" align="center" p={2} borderWidth="1px" borderRadius="md">
+                            <Text>{artist?.name || 'Artista desconocido'}</Text>
+                            <Button size="sm" colorScheme="red" onClick={() => handleRemoveArtist(artistId)}>
+                              Eliminar
+                            </Button>
+                          </Flex>
+                        );
+                      })}
+                    </VStack>
+                  </Box>
+                )}
+                
+              </FormControl>
+              
+              <FormControl mb={4} mt={4}>
+                <FormLabel>Géneros musicales</FormLabel>
+                <Flex align="center">
+                  <Select 
+                    placeholder="Seleccionar géneros"
+                    onChange={(e) => handleAddGenre(e.target.value)}
+                    value=""
+                  >
+                    {genres
+                      .filter(genre => !formData.genres.includes(genre.id))
+                      .map(genre => (
+                        <option key={genre.id} value={genre.id}>
+                          {genre.name}
+                        </option>
+                      ))}
+                  </Select>
+                </Flex>
+                
+                {formData.genres.length > 0 && (
+                  <Box mt={2}>
+                    <Text fontWeight="bold" mb={2}>Géneros seleccionados:</Text>
+                    <Flex flexWrap="wrap" gap={2}>
+                      {formData.genres.map(genreId => {
+                        const genre = genres.find(g => g.id === genreId);
+                        return (
+                          <Button 
+                            key={genreId} 
+                            size="sm" 
+                            colorScheme="blue" 
+                            variant="outline"
+                            rightIcon={<span>×</span>}
+                            onClick={() => handleRemoveGenre(genreId)}
+                          >
+                            {genre?.name || 'Género'}
+                          </Button>
+                        );
+                      })}
+                    </Flex>
+                  </Box>
+                )}
                 <Text fontSize="sm" color="gray.500" mt={1}>
-                  Puede ser diferente del artista del LP (colaboración)
+                  Puedes seleccionar múltiples géneros para clasificar la canción
                 </Text>
               </FormControl>
               

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Box, Button, FormControl, FormLabel, Input, 
   Select, useToast, VStack, Heading, NumberInput,
@@ -29,7 +29,7 @@ export const AlbumForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const queryClient = useQueryClient();
-  const cancelRef = React.useRef<HTMLButtonElement>(null);
+  const cancelRef = useRef<HTMLButtonElement>(null);
 
   // Cargar artistas y álbumes
   useEffect(() => {
@@ -114,13 +114,20 @@ export const AlbumForm = () => {
 
     setIsLoading(true);
     try {
-      await createAlbum({
-        id: editingAlbum?.id, // Si es null, se crea nuevo. Si tiene valor, actualiza
+      // Crear un objeto con los datos básicos del álbum
+      const albumData: any = {
         title,
         artist_id: artistId,
         release_year: releaseYear,
         cover_image_url: coverImageUrl || undefined
-      });
+      };
+      
+      // Si estamos editando, añadir el ID
+      if (editingAlbum?.id) {
+        albumData.id = editingAlbum.id;
+      }
+      
+      await createAlbum(albumData);
       
       resetForm();
       
@@ -198,20 +205,20 @@ export const AlbumForm = () => {
                   )}
                   
                   {/* Información BPM */}
-                  {album.songs && album.songs.length > 0 && (
-                    <VStack align="start" mt={3} spacing={1}>
-                      <Text fontSize="sm" fontWeight="bold">BPM promedio:</Text>
-                      <HStack spacing={1}>
-                        {Array.from(new Set(album.songs.map(song => {
-                          const bpm = song.bpm || 0;
-                          return { emoji: getBpmColorEmoji(bpm), name: getBpmColorName(bpm) };
-                        }))).map((bpmInfo, index) => (
+                  {album.songs && Array.isArray(album.songs) && album.songs.length > 0 && (
+                    <Box mt={2}>
+                      <Text fontSize="xs" color="gray.500">BPMs:</Text>
+                      <Flex wrap="wrap" gap={1}>
+                        {Array.from(new Set(album.songs.map((song: any) => {
+                          const bpmValue = song.bpm;
+                          return bpmValue ? getBpmColorName(bpmValue) : null;
+                        }).filter(Boolean))).map((bpmInfo: any, index) => (
                           <Badge key={index} colorScheme={bpmInfo.name.toLowerCase()} mt={1}>
                             {bpmInfo.emoji} {bpmInfo.name}
                           </Badge>
                         ))}
-                      </HStack>
-                    </VStack>
+                      </Flex>
+                    </Box>
                   )}
                   
                   <Divider my={3} />

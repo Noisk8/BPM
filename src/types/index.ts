@@ -12,6 +12,7 @@ export interface Album {
   cover_image_url?: string;
   created_at: string;
   artist?: Artist;
+  songs?: Song[];
 }
 
 export interface Song {

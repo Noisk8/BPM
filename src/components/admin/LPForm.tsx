@@ -15,6 +15,12 @@ interface Artist {
   name: string;
 }
 
+interface Genre {
+  id: string;
+  name: string;
+  description?: string;
+}
+
 interface SelectedArtist {
   id: string;
   name: string;
@@ -50,6 +56,7 @@ const LPForm: React.FC = () => {
   const isEditMode = Boolean(id);
   
   const [artists, setArtists] = useState<Artist[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -58,8 +65,16 @@ const LPForm: React.FC = () => {
   const [isNewArtistModalOpen, setIsNewArtistModalOpen] = useState(false);
   const [newArtistName, setNewArtistName] = useState('');
   
+  // Estado para modal de nuevo género
+  const [isNewGenreModalOpen, setIsNewGenreModalOpen] = useState(false);
+  const [newGenreName, setNewGenreName] = useState('');
+  const [newGenreDescription, setNewGenreDescription] = useState('');
+  
   // Estado para llevar track de múltiples artistas seleccionados
   const [selectedArtists, setSelectedArtists] = useState<SelectedArtist[]>([]);
+  
+  // Estado para llevar track de géneros seleccionados
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   
   // Array para almacenar IDs de canciones a eliminar cuando se guarde el formulario
   const [songsToDelete, setSongsToDelete] = useState<string[]>([]);
@@ -78,24 +93,34 @@ const LPForm: React.FC = () => {
   const [songsData, setSongsData] = useState<Song[]>([]);
   const [isAddingSongs, setIsAddingSongs] = useState(false);
 
-  // Cargar artistas para el selector
+  // Cargar artistas y géneros para los selectores
   useEffect(() => {
-    const fetchArtists = async () => {
+    const fetchData = async () => {
       try {
-        const { data, error } = await supabase
+        // Cargar artistas
+        const { data: artistsData, error: artistsError } = await supabase
           .from('artists')
           .select('id, name')
           .order('name');
 
-        if (error) throw error;
-        setArtists(data || []);
+        if (artistsError) throw artistsError;
+        setArtists(artistsData || []);
+        
+        // Cargar géneros
+        const { data: genresData, error: genresError } = await supabase
+          .from('genres')
+          .select('id, name, description')
+          .order('name');
+          
+        if (genresError) throw genresError;
+        setGenres(genresData || []);
       } catch (err: any) {
-        console.error('Error cargando artistas:', err);
-        setError('Error al cargar la lista de artistas');
+        console.error('Error cargando datos:', err);
+        setError('Error al cargar los datos necesarios');
       }
     };
 
-    fetchArtists();
+    fetchData();
   }, []);
 
   // Si estamos en modo edición, cargar los datos del LP
@@ -146,6 +171,19 @@ const LPForm: React.FC = () => {
             }));
             
             setSelectedArtists(artists);
+          }
+          
+          // Cargar los géneros asociados al álbum
+          const { data: albumGenres, error: genresError } = await supabase
+            .from('album_genres')
+            .select('genre_id')
+            .eq('album_id', id);
+            
+          if (genresError) throw genresError;
+          
+          if (albumGenres && albumGenres.length > 0) {
+            const genreIds = albumGenres.map(item => item.genre_id);
+            setSelectedGenres(genreIds);
           }
           
           // Cargar las canciones del álbum con información completa
@@ -232,6 +270,25 @@ const LPForm: React.FC = () => {
     e.target.value = '';
   };
   
+  // Manejar selección de género
+  const handleGenreSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const genreId = e.target.value;
+    if (!genreId) return;
+    
+    // Verificar si ya está seleccionado
+    if (selectedGenres.includes(genreId)) {
+      toast({
+        title: 'Género ya seleccionado',
+        status: 'info',
+        duration: 2000,
+      });
+      return;
+    }
+    
+    // Añadir a la lista de seleccionados
+    setSelectedGenres(prev => [...prev, genreId]);
+  };
+  
   // Eliminar un artista de la selección
   const removeSelectedArtist = (artistId: string) => {
     setSelectedArtists(prev => {
@@ -244,6 +301,11 @@ const LPForm: React.FC = () => {
       
       return filtered;
     });
+  };
+  
+  // Eliminar género de la selección
+  const removeGenre = (genreId: string) => {
+    setSelectedGenres(prev => prev.filter(id => id !== genreId));
   };
   
   // Cambiar el artista primario
@@ -306,6 +368,64 @@ const LPForm: React.FC = () => {
       toast({
         title: 'Error',
         description: err.message || 'Error al crear el artista',
+        status: 'error',
+        duration: 5000,
+      });
+    }
+  };
+  
+  // Crear un nuevo género
+  const handleCreateNewGenre = async () => {
+    if (!newGenreName.trim()) {
+      toast({
+        title: 'Nombre requerido',
+        description: 'Por favor ingresa un nombre para el género',
+        status: 'warning',
+        duration: 3000,
+      });
+      return;
+    }
+    
+    try {
+      // Insertar el nuevo género en la base de datos
+      const { data, error } = await supabase
+        .from('genres')
+        .insert([{ 
+          name: newGenreName.trim(),
+          description: newGenreDescription.trim() || null
+        }])
+        .select();
+        
+      if (error) throw error;
+      
+      if (data && data.length > 0) {
+        // Añadir el nuevo género a la lista
+        setGenres(prev => [...prev, { 
+          id: data[0].id, 
+          name: data[0].name,
+          description: data[0].description 
+        }]);
+        
+        // Seleccionarlo automáticamente
+        setSelectedGenres(prev => [...prev, data[0].id]);
+        
+        toast({
+          title: 'Género creado',
+          description: `El género "${data[0].name}" ha sido creado y seleccionado`,
+          status: 'success',
+          duration: 3000,
+        });
+        
+        // Cerrar el modal y limpiar
+        setIsNewGenreModalOpen(false);
+        setNewGenreName('');
+        setNewGenreDescription('');
+      }
+    } catch (err: any) {
+      console.error('Error creando género:', err);
+      toast({
+        title: 'Error',
+        description: err.message || 'Error al crear el género',
         status: 'error',
         duration: 5000,
       });
@@ -465,12 +585,20 @@ const LPForm: React.FC = () => {
         albumId = id;
         
         // Eliminar todas las relaciones album_artists existentes para recriarlas
-        const { error: deleteError } = await supabase
+        const { error: deleteArtistsError } = await supabase
           .from('album_artists')
           .delete()
           .eq('album_id', id);
           
-        if (deleteError) throw deleteError;
+        if (deleteArtistsError) throw deleteArtistsError;
+        
+        // Eliminar todas las relaciones album_genres existentes para recriarlas
+        const { error: deleteGenresError } = await supabase
+          .from('album_genres')
+          .delete()
+          .eq('album_id', id);
+          
+        if (deleteGenresError) throw deleteGenresError;
         
       } else {
         // Crear nuevo LP
@@ -497,6 +625,20 @@ const LPForm: React.FC = () => {
         .insert(albumArtistsData);
         
       if (artistsError) throw artistsError;
+      
+      // Crear relaciones album_genres para todos los géneros seleccionados
+      if (selectedGenres.length > 0) {
+        const albumGenresData = selectedGenres.map(genreId => ({
+          album_id: albumId,
+          genre_id: genreId
+        }));
+        
+        const { error: genresError } = await supabase
+          .from('album_genres')
+          .insert(albumGenresData);
+          
+        if (genresError) throw genresError;
+      }
       
       // Procesar canciones si hay alguna
       if (isEditMode && albumId) {
@@ -661,6 +803,57 @@ const LPForm: React.FC = () => {
                         placeholder="Ej: 2020"
                         type="number"
                       />
+                    </FormControl>
+                    
+                    <FormControl id="genres">
+                      <FormLabel>Géneros musicales</FormLabel>
+                      <Flex align="center" mb={2}>
+                        <Select
+                          placeholder="Selecciona un género"
+                          onChange={handleGenreSelect}
+                          value=""
+                          mr={2}
+                        >
+                          {genres
+                            .filter(genre => !selectedGenres.includes(genre.id))
+                            .map(genre => (
+                              <option key={genre.id} value={genre.id}>
+                                {genre.name}
+                              </option>
+                            ))}
+                        </Select>
+                        <Button
+                          leftIcon={<AddIcon />}
+                          colorScheme="teal"
+                          size="sm"
+                          onClick={() => setIsNewGenreModalOpen(true)}
+                        >
+                          Nuevo
+                        </Button>
+                      </Flex>
+                      
+                      {selectedGenres.length > 0 && (
+                        <Box mt={2}>
+                          <Text fontWeight="bold" mb={2}>Géneros seleccionados:</Text>
+                          <Flex flexWrap="wrap" gap={2}>
+                            {selectedGenres.map(genreId => {
+                              const genre = genres.find(g => g.id === genreId);
+                              return (
+                                <Tag
+                                  key={genreId}
+                                  size="md"
+                                  borderRadius="full"
+                                  variant="solid"
+                                  colorScheme="blue"
+                                >
+                                  <TagLabel>{genre?.name || 'Género'}</TagLabel>
+                                  <TagCloseButton onClick={() => removeGenre(genreId)} />
+                                </Tag>
+                              );
+                            })}
+                          </Flex>
+                        </Box>
+                      )}
                     </FormControl>
                     
                     <FormControl id="cover_image_url">
@@ -877,9 +1070,9 @@ const LPForm: React.FC = () => {
           <ModalHeader>Crear nuevo artista</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl isRequired>
+            <FormControl>
               <FormLabel>Nombre del artista</FormLabel>
-              <Input
+              <Input 
                 value={newArtistName}
                 onChange={(e) => setNewArtistName(e.target.value)}
                 placeholder="Nombre del artista"
@@ -891,7 +1084,44 @@ const LPForm: React.FC = () => {
               Cancelar
             </Button>
             <Button colorScheme="blue" onClick={handleCreateNewArtist}>
-              Crear y añadir
+              Crear
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      
+      {/* Modal para crear nuevo género */}
+      <Modal isOpen={isNewGenreModalOpen} onClose={() => setIsNewGenreModalOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Crear nuevo género musical</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack spacing={4}>
+              <FormControl isRequired>
+                <FormLabel>Nombre del género</FormLabel>
+                <Input 
+                  value={newGenreName}
+                  onChange={(e) => setNewGenreName(e.target.value)}
+                  placeholder="Ej: Rock, Jazz, Hip Hop"
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Descripción (opcional)</FormLabel>
+                <Input 
+                  value={newGenreDescription}
+                  onChange={(e) => setNewGenreDescription(e.target.value)}
+                  placeholder="Breve descripción del género"
+                />
+              </FormControl>
+            </VStack>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" mr={3} onClick={() => setIsNewGenreModalOpen(false)}>
+              Cancelar
+            </Button>
+            <Button colorScheme="teal" onClick={handleCreateNewGenre}>
+              Crear
             </Button>
           </ModalFooter>
         </ModalContent>

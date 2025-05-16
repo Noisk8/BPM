@@ -341,61 +341,7 @@ const HomePage = () => {
         </Box>
       )}
       
-      {/* Lista de álbumes */}
-      {!searchQuery && (
-        <Box>
-          <Flex align="center" justify="space-between" mb={4}>
-            <Heading size="md">Últimos álbumes añadidos</Heading>
-          </Flex>
-          
-          {loading ? (
-            <AlbumSkeletonGrid count={8} />
-          ) : error ? (
-            <Box p={4} bg="red.100" color="red.800" borderRadius="md" mb={4}>
-              <Text>{error}</Text>
-            </Box>
-          ) : albums.length === 0 ? (
-            <Box p={4} bg="gray.100" borderRadius="md">
-              <Text>No hay álbumes disponibles.</Text>
-            </Box>
-          ) : (
-            <SimpleGrid columns={[1, 2, 3, 4]} spacing={6}>
-              {albums.map(album => (
-                <Box 
-                  key={album.id} 
-                  borderWidth="1px" 
-                  borderRadius="lg" 
-                  overflow="hidden"
-                  transition="transform 0.3s"
-                  _hover={{ transform: 'translateY(-5px)', shadow: 'md' }}
-                  onClick={() => navigate(`/album/${album.id}`)}
-                  cursor="pointer"
-                >
-                  <Box 
-                    height="180px" 
-                    bg="gray.200" 
-                    bgImage={album.cover_image_url ? `url(${album.cover_image_url})` : 'none'}
-                    bgSize="cover"
-                    bgPosition="center"
-                  >
-                    {!album.cover_image_url && (
-                      <Center height="100%">
-                        <Text fontSize="5xl">💿</Text>
-                      </Center>
-                    )}
-                  </Box>
-                  <Box p={4}>
-                    <Heading size="sm" isTruncated>{album.title}</Heading>
-                    <Text color="gray.600" fontSize="sm">
-                      {album.release_year}
-                    </Text>
-                  </Box>
-                </Box>
-              ))}
-            </SimpleGrid>
-          )}
-        </Box>
-      )}
+
       
       {/* Lista de álbumes */}
       {!searchQuery && (
@@ -499,7 +445,7 @@ const BpmInfoPage = () => {
     <Center minHeight="80vh">
       <VStack spacing={5}>
         <Heading>Información de BPM</Heading>
-        <Text fontSize="xl">Sistema de gestión musical por BPM</Text>
+     
         
         <Box p={5} borderWidth="1px" borderRadius="md">
           <Heading size="md" mb={3}>Código de colores BPM:</Heading>

@@ -193,15 +193,22 @@ export const SongForm = () => {
 
     setIsLoading(true);
     try {
-      await createSong({
-        id: editingSong?.id, // Si tiene ID, actualiza. Si no, crea nuevo
+      // Crear objeto con datos básicos
+      const songData: any = {
         title,
         artist_id: artistId,
         album_id: albumId,
         bpm,
-        duration_seconds: durationSeconds,
-        key: key || undefined
-      });
+        key: key || null,
+        duration_seconds: durationSeconds
+      };
+      
+      // Si estamos editando, añadir el ID
+      if (editingSong?.id) {
+        songData.id = editingSong.id;
+      }
+      
+      await createSong(songData);
       
       // Recargar los datos
       const songsData = await getSongs();
@@ -281,24 +288,43 @@ export const SongForm = () => {
                 <Text mb={2} fontWeight="medium">Filtro de BPM: {bpmFilter[0]} - {bpmFilter[1]}</Text>
                 <HStack spacing={2}>
                   <Text fontSize="sm">70</Text>
-                  <Slider 
-                    min={70} 
-                    max={140} 
-                    step={1}
-                    value={bpmFilter}
-                    onChange={(val) => setBpmFilter(val)}
-                    colorScheme="blue"
-                  >
-                    <SliderTrack bg="gray.100">
-                      <SliderFilledTrack />
-                    </SliderTrack>
-                    <SliderThumb boxSize={6} index={0}>
-                      <Box color="blue.500">🔵</Box>
-                    </SliderThumb>
-                    <SliderThumb boxSize={6} index={1}>
-                      <Box color="purple.500">🟣</Box>
-                    </SliderThumb>
-                  </Slider>
+                  {/* Nota: El RangeSlider no está funcionando correctamente, usar dos sliders separados */}
+                  <HStack spacing={4} mb={4}>
+                    <Box flex="1">
+                      <Text fontSize="sm">BPM Mínimo: {bpmFilter[0]}</Text>
+                      <Slider
+                        min={70}
+                        max={140}
+                        step={1}
+                        value={bpmFilter[0]}
+                        onChange={(val) => setBpmFilter([val, bpmFilter[1]])}
+                      >
+                        <SliderTrack bg="gray.100">
+                          <SliderFilledTrack bg="blue.400" />
+                        </SliderTrack>
+                        <SliderThumb boxSize={6}>
+                          <Box>{bpmFilter[0]}</Box>
+                        </SliderThumb>
+                      </Slider>
+                    </Box>
+                    <Box flex="1">
+                      <Text fontSize="sm">BPM Máximo: {bpmFilter[1]}</Text>
+                      <Slider
+                        min={70}
+                        max={140}
+                        step={1}
+                        value={bpmFilter[1]}
+                        onChange={(val) => setBpmFilter([bpmFilter[0], val])}
+                      >
+                        <SliderTrack bg="gray.100">
+                          <SliderFilledTrack bg="blue.400" />
+                        </SliderTrack>
+                        <SliderThumb boxSize={6}>
+                          <Box>{bpmFilter[1]}</Box>
+                        </SliderThumb>
+                      </Slider>
+                    </Box>
+                  </HStack>
                   <Text fontSize="sm">140</Text>
                 </HStack>
                 <HStack spacing={1} mt={1} justifyContent="space-between">
