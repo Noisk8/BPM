@@ -1,6 +1,6 @@
 | Artista             | Álbum                 | Canción               | BPM |
 |---------------------|----------------------|-----------------------|-----|
-|**Happy 707**        |**Escupir Un Burgues**|                       |     |
+<!-- |**Happy 707**        |**Escupir Un Burgues**|                       |     |
 |                     |                       | A1 Cyberchase         | 122 🔴 |
 |                     |                       | A2 El Extranjero      | 125 🔴 |
 |                     |                       | A3 Las Bolas          | 128 🔴 |
@@ -53,7 +53,7 @@
 |                     |                       |                       |     |
 |**Front 242**        |**Headhunter**        |                       |     |
 |                     |                       | A Headhunter (V2.0)          | 120 🔴 |
-|                     |                       | B Welcome To Paradise (V2.0) | 120 🔴 |
+|                     |                       | B Welcome To Paradise (V2.0) | 120 🔴 | -->
 |                     |                       |                       |     |
 |**Various**          |**Frigio Allstars Vol 2**|                       |     |
 |Pera Yang            |                       | A1 Mad Vision                     | 125 🔴 |
