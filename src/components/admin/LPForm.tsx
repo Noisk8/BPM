@@ -3,7 +3,8 @@ import {
   Box, VStack, Heading, FormControl, FormLabel, Input, Button, 
   Select, Text, useToast, Flex, HStack, Center, Tag, TagLabel, TagCloseButton,
   Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, ModalCloseButton,
-  Tabs, TabList, TabPanels, Tab, TabPanel, IconButton, Checkbox, Divider, SimpleGrid
+  Tabs, TabList, TabPanels, Tab, TabPanel, IconButton, Checkbox, Divider, SimpleGrid,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowBackIcon, AddIcon, SmallAddIcon, DeleteIcon } from '@chakra-ui/icons';
@@ -54,6 +55,21 @@ const LPForm: React.FC = () => {
   const toast = useToast();
   const { id } = useParams<{ id: string }>();
   const isEditMode = Boolean(id);
+  
+  // Colores adaptables al modo oscuro/claro
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const textColor = useColorModeValue('gray.700', 'gray.200');
+  const secondaryTextColor = useColorModeValue('gray.600', 'gray.400');
+  const borderColor = useColorModeValue('gray.200', 'gray.600');
+  const errorBg = useColorModeValue('red.100', 'red.900');
+  const errorTextColor = useColorModeValue('red.800', 'red.200');
+  const formBg = useColorModeValue('white', 'gray.800');
+  const tabBg = useColorModeValue('gray.50', 'gray.700');
+  const highlightBg = useColorModeValue('blue.50', 'blue.900');
+  const dashedBorderColor = useColorModeValue('gray.300', 'gray.600');
+  const placeholderColor = useColorModeValue('gray.500', 'gray.400');
+  const tagBg = useColorModeValue('blue.100', 'blue.800');
+  const hoverBg = useColorModeValue('gray.100', 'gray.700');
   
   const [artists, setArtists] = useState<Artist[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -757,7 +773,7 @@ const LPForm: React.FC = () => {
   return (
     <Box p={5}>
       <Flex justify="space-between" align="center" mb={5}>
-        <Heading>{isEditMode ? 'Editar LP' : 'Nuevo LP'}</Heading>
+        <Heading color={textColor}>{isEditMode ? 'Editar LP' : 'Nuevo LP'}</Heading>
         <Button leftIcon={<ArrowBackIcon />} variant="outline" onClick={() => navigate('/admin/lps')}>
           Volver
         </Button>
@@ -765,43 +781,51 @@ const LPForm: React.FC = () => {
 
       {loading ? (
         <Center h="200px">
-          <Text>Cargando datos...</Text>
+          <Text color={textColor}>Cargando datos...</Text>
         </Center>
       ) : error ? (
-        <Box p={4} bg="red.100" color="red.800" borderRadius="md" mb={4}>
+        <Box p={4} bg={errorBg} color={errorTextColor} borderRadius="md" mb={4}>
           <Text>{error}</Text>
         </Box>
       ) : (
         <Box maxW="800px" mx="auto">
           <Tabs variant="enclosed">
             <TabList>
-              <Tab>Información del LP</Tab>
-              <Tab>Artistas {selectedArtists.length > 0 && `(${selectedArtists.length})`}</Tab>
-              <Tab>Canciones {songsData.length > 0 && `(${songsData.length})`}</Tab>
+              <Tab _selected={{ bg: tabBg, color: textColor }}>Información del LP</Tab>
+              <Tab _selected={{ bg: tabBg, color: textColor }}>Artistas {selectedArtists.length > 0 && `(${selectedArtists.length})`}</Tab>
+              <Tab _selected={{ bg: tabBg, color: textColor }}>Canciones {songsData.length > 0 && `(${songsData.length})`}</Tab>
             </TabList>
             
             <TabPanels>
               <TabPanel>
-                <Box as="form" p={6} borderWidth="1px" borderRadius="lg" bg="white" shadow="md">
+                <Box as="form" p={6} borderWidth="1px" borderRadius="lg" bg={formBg} borderColor={borderColor} shadow="md">
                   <VStack spacing={4} align="stretch">
                     <FormControl id="title" isRequired>
-                      <FormLabel>Título del LP</FormLabel>
+                      <FormLabel color={textColor}>Título del LP</FormLabel>
                       <Input
                         name="title"
                         value={formData.title}
                         onChange={handleChange}
                         placeholder="Nombre del álbum/LP"
+                        bg={cardBg}
+                        color={textColor}
+                        borderColor={borderColor}
+                        _placeholder={{ color: placeholderColor }}
                       />
                     </FormControl>
                     
                     <FormControl id="release_year">
-                      <FormLabel>Año de lanzamiento</FormLabel>
+                      <FormLabel color={textColor}>Año de lanzamiento</FormLabel>
                       <Input
                         name="release_year"
                         value={formData.release_year}
                         onChange={handleChange}
                         placeholder="Ej: 2020"
                         type="number"
+                        bg={cardBg}
+                        color={textColor}
+                        borderColor={borderColor}
+                        _placeholder={{ color: placeholderColor }}
                       />
                     </FormControl>
                     
@@ -857,18 +881,22 @@ const LPForm: React.FC = () => {
                     </FormControl>
                     
                     <FormControl id="cover_image_url">
-                      <FormLabel>URL de la portada</FormLabel>
+                      <FormLabel color={textColor}>URL de la portada</FormLabel>
                       <Input
                         name="cover_image_url"
                         value={formData.cover_image_url}
                         onChange={handleImageUrlChange}
                         placeholder="https://ejemplo.com/imagen.jpg"
+                        bg={cardBg}
+                        color={textColor}
+                        borderColor={borderColor}
+                        _placeholder={{ color: placeholderColor }}
                       />
                       
                       {/* Vista previa de la imagen */}
                       {showImagePreview && formData.cover_image_url && (
                         <Box mt={4}>
-                          <Text mb={2} fontSize="sm">Vista previa:</Text>
+                          <Text mb={2} fontSize="sm" color={secondaryTextColor}>Vista previa:</Text>
                           <Box 
                             width="200px" 
                             height="200px" 
@@ -877,6 +905,8 @@ const LPForm: React.FC = () => {
                             backgroundPosition="center"
                             borderRadius="md"
                             boxShadow="md"
+                            borderColor={borderColor}
+                            borderWidth="1px"
                           />
                         </Box>
                       )}
@@ -1043,11 +1073,11 @@ const LPForm: React.FC = () => {
             </TabPanels>
           </Tabs>
           
-          <Box mt={6} borderWidth="1px" borderRadius="lg" p={6} bg="blue.50">
+          <Box mt={6} borderWidth="1px" borderRadius="lg" p={6} bg={highlightBg} borderColor={borderColor}>
             <Flex justify="space-between" align="center">
               <Box>
-                <Text fontWeight="bold">Estás {isEditMode ? 'editando' : 'creando'} un LP con:</Text>
-                <Text>{selectedArtists.length} artista(s) y {songsData.length} canción(es)</Text>
+                <Text fontWeight="bold" color={textColor}>Estás {isEditMode ? 'editando' : 'creando'} un LP con:</Text>
+                <Text color={textColor}>{selectedArtists.length} artista(s) y {songsData.length} canción(es)</Text>
               </Box>
               <Button
                 onClick={handleSubmit}
@@ -1066,16 +1096,20 @@ const LPForm: React.FC = () => {
       {/* Modal para crear nuevo artista */}
       <Modal isOpen={isNewArtistModalOpen} onClose={() => setIsNewArtistModalOpen(false)}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Crear nuevo artista</ModalHeader>
+        <ModalContent bg={formBg} borderColor={borderColor}>
+          <ModalHeader color={textColor}>Crear nuevo artista</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
-              <FormLabel>Nombre del artista</FormLabel>
+              <FormLabel color={textColor}>Nombre del artista</FormLabel>
               <Input 
                 value={newArtistName}
                 onChange={(e) => setNewArtistName(e.target.value)}
                 placeholder="Nombre del artista"
+                bg={cardBg}
+                color={textColor}
+                borderColor={borderColor}
+                _placeholder={{ color: placeholderColor }}
               />
             </FormControl>
           </ModalBody>
@@ -1093,25 +1127,33 @@ const LPForm: React.FC = () => {
       {/* Modal para crear nuevo género */}
       <Modal isOpen={isNewGenreModalOpen} onClose={() => setIsNewGenreModalOpen(false)}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Crear nuevo género musical</ModalHeader>
+        <ModalContent bg={formBg} borderColor={borderColor}>
+          <ModalHeader color={textColor}>Crear nuevo género musical</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4}>
               <FormControl isRequired>
-                <FormLabel>Nombre del género</FormLabel>
+                <FormLabel color={textColor}>Nombre del género</FormLabel>
                 <Input 
                   value={newGenreName}
                   onChange={(e) => setNewGenreName(e.target.value)}
                   placeholder="Ej: Rock, Jazz, Hip Hop"
+                  bg={cardBg}
+                  color={textColor}
+                  borderColor={borderColor}
+                  _placeholder={{ color: placeholderColor }}
                 />
               </FormControl>
               <FormControl>
-                <FormLabel>Descripción (opcional)</FormLabel>
+                <FormLabel color={textColor}>Descripción (opcional)</FormLabel>
                 <Input 
                   value={newGenreDescription}
                   onChange={(e) => setNewGenreDescription(e.target.value)}
                   placeholder="Breve descripción del género"
+                  bg={cardBg}
+                  color={textColor}
+                  borderColor={borderColor}
+                  _placeholder={{ color: placeholderColor }}
                 />
               </FormControl>
             </VStack>

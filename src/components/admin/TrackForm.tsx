@@ -5,12 +5,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import { createClient } from '@supabase/supabase-js';
-
-// Configuración de Supabase
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '../../services/supabase';
 
 const TrackForm: React.FC = () => {
   const navigate = useNavigate();

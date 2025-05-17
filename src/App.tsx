@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import { Box, Flex, Heading, Spacer, HStack, Button, Text, VStack, Center, SimpleGrid, 
   Input, FormControl, FormLabel, FormErrorMessage, InputGroup, InputRightElement, IconButton,
-  useToast, Select, Skeleton } from '@chakra-ui/react'
+  useToast, Select, Skeleton, useColorModeValue, useColorMode } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import { 
   ViewIcon, ViewOffIcon, EditIcon, DeleteIcon, ArrowBackIcon, AddIcon
@@ -1150,6 +1150,16 @@ const ManageLPs = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
+  
+  // Colores adaptables al modo oscuro/claro
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const textColor = useColorModeValue('gray.600', 'gray.300');
+  const secondaryTextColor = useColorModeValue('gray.500', 'gray.400');
+  const errorBg = useColorModeValue('red.100', 'red.900');
+  const errorTextColor = useColorModeValue('red.800', 'red.200');
+  const emptyStateBg = useColorModeValue('gray.100', 'gray.700');
+  const tableBg = useColorModeValue('gray.50', 'gray.700');
+  const hoverBg = useColorModeValue('gray.100', 'gray.600');
 
   // Verificar sesión
   useEffect(() => {
@@ -1243,15 +1253,15 @@ const ManageLPs = () => {
 
       {loading ? (
         <Center h="400px">
-          <Text>Cargando LPs...</Text>
+          <Text color={textColor}>Cargando LPs...</Text>
         </Center>
       ) : error ? (
-        <Box p={4} bg="red.100" color="red.800" borderRadius="md" mb={4}>
+        <Box p={4} bg={errorBg} color={errorTextColor} borderRadius="md" mb={4}>
           <Text>{error}</Text>
         </Box>
       ) : lps.length === 0 ? (
-        <Box p={4} bg="gray.100" borderRadius="md">
-          <Text>No hay LPs disponibles. ¡Añade tu primer LP!</Text>
+        <Box p={4} bg={emptyStateBg} borderRadius="md">
+          <Text color={textColor}>No hay LPs disponibles. ¡Añade tu primer LP!</Text>
           <Button mt={4} colorScheme="blue" leftIcon={<AddIcon />} onClick={() => navigate('/admin/lps/new')}>
             Añadir primer LP
           </Button>
@@ -1259,12 +1269,12 @@ const ManageLPs = () => {
       ) : (
         <Box>
           {lps.map(lp => (
-            <Box key={lp.id} mb={8} p={5} borderWidth="1px" borderRadius="lg" bg="white" shadow="md">
+            <Box key={lp.id} mb={8} p={5} borderWidth="1px" borderRadius="lg" bg={cardBg} shadow="md">
               <Flex justify="space-between" align="flex-start" mb={4}>
                 <Box>
-                  <Heading size="lg">{lp.title}</Heading>
-                  <Text color="gray.600">{lp.artists?.name || 'Artista desconocido/Compilación'}</Text>
-                  <Text color="gray.500" fontSize="sm">{lp.release_year || 'Año desconocido'}</Text>
+                  <Heading size="lg" color={textColor}>{lp.title}</Heading>
+                  <Text color={textColor}>{lp.artists?.name || 'Artista desconocido/Compilación'}</Text>
+                  <Text color={secondaryTextColor} fontSize="sm">{lp.release_year || 'Año desconocido'}</Text>
                 </Box>
                 <HStack spacing={2}>
                   <Button
@@ -1287,34 +1297,34 @@ const ManageLPs = () => {
 
               {/* Lista de tracks */}
               {lp.songs && lp.songs.length > 0 ? (
-                <Box p={4} borderWidth="1px" borderRadius="md" bg="gray.50">
-                  <Heading size="md" mb={4}>Tracks ({lp.songs.length})</Heading>
+                <Box p={4} borderWidth="1px" borderRadius="md" bg={tableBg}>
+                  <Heading size="md" mb={4} color={textColor}>Tracks ({lp.songs.length})</Heading>
                   
                   <Box overflowX="auto">
                     <Box as="table" width="100%">
                       <Box as="thead">
                         <Box as="tr">
-                          <Box as="th" p={2} textAlign="left">BPM</Box>
-                          <Box as="th" p={2} textAlign="left">Título</Box>
-                          <Box as="th" p={2} textAlign="left">Artista</Box>
-                          <Box as="th" p={2} textAlign="left">Duración</Box>
-                          <Box as="th" p={2} textAlign="left">Acciones</Box>
+                          <Box as="th" p={2} textAlign="left" color={textColor}>BPM</Box>
+                          <Box as="th" p={2} textAlign="left" color={textColor}>Título</Box>
+                          <Box as="th" p={2} textAlign="left" color={textColor}>Artista</Box>
+                          <Box as="th" p={2} textAlign="left" color={textColor}>Duración</Box>
+                          <Box as="th" p={2} textAlign="left" color={textColor}>Acciones</Box>
                         </Box>
                       </Box>
                       <Box as="tbody">
                         {lp.songs.map((track: any) => (
-                          <Box as="tr" key={track.id} _hover={{ bg: 'gray.100' }}>
+                          <Box as="tr" key={track.id} _hover={{ bg: hoverBg }}>
                             <Box as="td" p={2}>
                               <Flex alignItems="center">
-                                <Text mr={2}>{track.bpm}</Text>
+                                <Text mr={2} color={textColor}>{track.bpm}</Text>
                                 <Text fontSize="xl" title={`BPM: ${track.bpm}`}>
                                   {getBpmColorEmoji(track.bpm)}
                                 </Text>
                               </Flex>
                             </Box>
-                            <Box as="td" p={2}>{track.title}</Box>
-                            <Box as="td" p={2}>{track.artists?.name || (lp.artists?.name !== track.artists?.name ? track.artists?.name : '')}</Box>
-                            <Box as="td" p={2}>{track.duration_seconds ? formatDuration(track.duration_seconds) : '--:--'}</Box>
+                            <Box as="td" p={2} color={textColor}>{track.title}</Box>
+                            <Box as="td" p={2} color={textColor}>{track.artists?.name || (lp.artists?.name !== track.artists?.name ? track.artists?.name : '')}</Box>
+                            <Box as="td" p={2} color={textColor}>{track.duration_seconds ? formatDuration(track.duration_seconds) : '--:--'}</Box>
                             <Box as="td" p={3}>
                               <HStack spacing={2}>
                                 <IconButton
@@ -1341,8 +1351,8 @@ const ManageLPs = () => {
                   </Box>
                 </Box>
               ) : (
-                <Box p={4} bg="gray.50" borderRadius="md" mt={3}>
-                  <Text color="gray.500">No hay tracks en este LP. Añade el primero.</Text>
+                <Box p={4} bg={tableBg} borderRadius="md" mt={3}>
+                  <Text color={secondaryTextColor}>No hay tracks en este LP. Añade el primero.</Text>
                   <Button
                     mt={2}
                     size="sm"
@@ -1370,6 +1380,16 @@ const BpmExplorer = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Colores adaptables al modo oscuro/claro
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const textColor = useColorModeValue('gray.600', 'gray.300');
+  const secondaryTextColor = useColorModeValue('gray.500', 'gray.400');
+  const errorBg = useColorModeValue('red.100', 'red.900');
+  const errorTextColor = useColorModeValue('red.800', 'red.200');
+  const tableBg = useColorModeValue('gray.50', 'gray.700');
+  const filterBg = useColorModeValue('gray.50', 'gray.700');
+  const hoverBg = useColorModeValue('gray.100', 'gray.600');
 
   // Verificar sesión
   useEffect(() => {
@@ -1470,8 +1490,8 @@ const BpmExplorer = () => {
       </Flex>
 
       {/* Categorías de BPM */}
-      <Box borderWidth="1px" borderRadius="md" p={4} mb={6} bg="gray.50">
-        <Heading size="md" mb={4}>Filtrar por categoría BPM</Heading>
+      <Box borderWidth="1px" borderRadius="md" p={4} mb={6} bg={filterBg}>
+        <Heading size="md" mb={4} color={textColor}>Filtrar por categoría BPM</Heading>
         <Flex flexWrap="wrap" gap={3}>
           <Button 
             onClick={() => filterByCategory(null)} 
@@ -1533,41 +1553,41 @@ const BpmExplorer = () => {
 
       {loading ? (
         <Center h="300px">
-          <Text>Cargando tracks...</Text>
+          <Text color={textColor}>Cargando tracks...</Text>
         </Center>
       ) : error ? (
-        <Box p={4} bg="red.100" color="red.800" borderRadius="md" mb={4}>
+        <Box p={4} bg={errorBg} color={errorTextColor} borderRadius="md" mb={4}>
           <Text>{error}</Text>
         </Box>
       ) : filteredTracks.length === 0 ? (
-        <Box p={4} bg="gray.100" borderRadius="md">
-          <Text>No hay tracks en esta categoría de BPM.</Text>
+        <Box p={4} bg={tableBg} borderRadius="md">
+          <Text color={secondaryTextColor}>No hay tracks en esta categoría de BPM.</Text>
         </Box>
       ) : (
         <Box overflowX="auto">
           <Box as="table" width="100%" borderWidth="1px" borderRadius="md">
-            <Box as="thead" bg="gray.100">
+            <Box as="thead" bg={tableBg}>
               <Box as="tr">
-                <Box as="th" p={3} textAlign="left">BPM</Box>
-                <Box as="th" p={3} textAlign="left">Título</Box>
-                <Box as="th" p={3} textAlign="left">Artista</Box>
-                <Box as="th" p={3} textAlign="left">LP/Álbum</Box>
-                <Box as="th" p={3} textAlign="left">Duración</Box>
+                <Box as="th" p={3} textAlign="left" color={textColor}>BPM</Box>
+                <Box as="th" p={3} textAlign="left" color={textColor}>Título</Box>
+                <Box as="th" p={3} textAlign="left" color={textColor}>Artista</Box>
+                <Box as="th" p={3} textAlign="left" color={textColor}>LP/Álbum</Box>
+                <Box as="th" p={3} textAlign="left" color={textColor}>Duración</Box>
               </Box>
             </Box>
             <Box as="tbody">
               {filteredTracks.map(track => (
-                <Box as="tr" key={track.id} _hover={{ bg: 'gray.50' }}>
+                <Box as="tr" key={track.id} _hover={{ bg: hoverBg }}>
                   <Box as="td" p={3}>
                     <Flex alignItems="center">
-                      <Text mr={2}>{track.bpm}</Text>
+                      <Text mr={2} color={textColor}>{track.bpm}</Text>
                       <Text fontSize="xl">{getBpmColorEmoji(track.bpm)}</Text>
                     </Flex>
                   </Box>
-                  <Box as="td" p={3}>{track.title}</Box>
-                  <Box as="td" p={3}>{track.artists?.name || 'Desconocido'}</Box>
-                  <Box as="td" p={3}>{track.albums?.title || 'Single'}</Box>
-                  <Box as="td" p={3}>{track.duration_seconds ? formatDuration(track.duration_seconds) : '--:--'}</Box>
+                  <Box as="td" p={3} color={textColor}>{track.title}</Box>
+                  <Box as="td" p={3} color={textColor}>{track.artists?.name || 'Desconocido'}</Box>
+                  <Box as="td" p={3} color={textColor}>{track.albums?.title || 'Single'}</Box>
+                  <Box as="td" p={3} color={textColor}>{track.duration_seconds ? formatDuration(track.duration_seconds) : '--:--'}</Box>
                 </Box>
               ))}
             </Box>
